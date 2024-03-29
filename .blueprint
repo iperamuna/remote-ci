@@ -1,0 +1,31 @@
+created:
+    - database/factories/ProjectFactory.php
+    - database/factories/EnvironmentFactory.php
+    - database/factories/ServerFactory.php
+    - database/factories/BuildProfileFactory.php
+    - database/factories/BuildStepFactory.php
+    - database/factories/ServerBuildProfileFactory.php
+    - database/factories/BuildHistoryFactory.php
+    - database/migrations/2024_03_29_195223_create_projects_table.php
+    - database/migrations/2024_03_29_195224_create_environments_table.php
+    - database/migrations/2024_03_29_195225_create_servers_table.php
+    - database/migrations/2024_03_29_195226_create_build_profiles_table.php
+    - database/migrations/2024_03_29_195227_create_build_steps_table.php
+    - database/migrations/2024_03_29_195228_create_server_build_profiles_table.php
+    - database/migrations/2024_03_29_195229_create_build_histories_table.php
+    - app/Models/Project.php
+    - app/Models/Environment.php
+    - app/Models/Server.php
+    - app/Models/BuildProfile.php
+    - app/Models/BuildStep.php
+    - app/Models/ServerBuildProfile.php
+    - app/Models/BuildHistory.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable' }
+    Project: { id: id, slug: 'uuid unique', name: 'string:400', description: 'longtext nullable', status: string, owner_id: 'id foreign:users' }
+    Environment: { id: id, name: 'string:400', description: 'longtext nullable', status: string, project_id: 'id foreign:projects', owner_id: 'id foreign:users' }
+    Server: { id: id, name: 'string:400', description: 'longtext nullable', hostname: string, ip: string, port: int, url: string, pass_phrase: string, pass_file: string, username: string, status: string, environment_id: 'id foreign:environments', owner_id: 'id foreign:users' }
+    BuildProfile: { id: id, name: 'string:400', description: 'longtext nullable', status: string, owner_id: 'id foreign:users' }
+    BuildStep: { id: id, task: 'string:400', description: 'longtext nullable', status: string, build_profile_id: 'id foreign:build_profiles', owner_id: 'id foreign:users' }
+    ServerBuildProfile: { id: id, status: string, server_id: 'id foreign:servers', build_profile_id: 'id foreign:build_profiles', owner_id: 'id foreign:users' }
+    BuildHistory: { id: id, server_build_profile_id: 'id foreign:server_build_profiles', response: 'longtext nullable' }
