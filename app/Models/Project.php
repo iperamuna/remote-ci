@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Project extends Model
 {
     use HasFactory;
+    use HasUUID;
+
+    protected string $uuidFieldName = 'slug';
 
     /**
      * The attributes that are mass assignable.
@@ -34,4 +38,15 @@ class Project extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

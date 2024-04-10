@@ -22,11 +22,10 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'slug' => $this->faker->slug(),
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
-            'status' => $this->faker->word(),
-            'owner_id' => User::factory(),
+            'status' => 'active',
+            'owner_id' => 1
         ];
     }
 }
